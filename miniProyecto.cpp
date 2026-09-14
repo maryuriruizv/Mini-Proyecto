@@ -34,16 +34,18 @@ void mostrar();
 void buscar();
 void reporteCreativo();
 
-
-int main() {
-    //Declaramos las variables
+//Declaramos las variables
     string nombres[20];
     string razas[20];
-    int edades[20];
+    string nombreBuscar;
+    int edad[20];
     double peso[20];
     int totalMascotas = 0;
     int opcion;
 
+
+
+int main() {
     //Utilizamos do while 
     do {
         cout << "===== REGISTRO DE MASCOTAS =====";
@@ -80,7 +82,8 @@ int main() {
                     bool encontrada = false;
 
                     for (int i = 0; i < totalMascotas; i++){
-                        if (nombres[i] == buscar) {
+                        cout << "Componente creativo: " << endl;
+                        if (nombres[i] == nombreBuscar) {
                             encontrada = true;
 
                             cout << "----RECOMENDACION NUTRICIONAL----";
@@ -121,8 +124,7 @@ int main() {
 //Esta funcion registra el nombre de la mascota
 void registrar(){
     if (totalMascotas >=20){
-        cout << "Limite de registro alcanzado."
-        return;
+        cout << "Limite de registro alcanzado.";
     }
     cout << "----REGISTRAR NUEVA MASCOTA----";
     cout << "Nombre: ";
@@ -144,4 +146,67 @@ void registrar(){
 
     totalMascotas++;
     cout << "Mascota registrada con exito.";
+}
+
+// Función 2: Mostrar
+void mostrar() {
+    if (totalMascotas == 0) {
+        cout << "No existen datos registrados todavia.";
+        return;
+    }
+    cout << "--- LISTA DE MASCOTAS ---";
+    for (int i = 0; i < totalMascotas; i++) {
+        cout << i + 1 << ". Nombre: " << nombres[i] 
+             << " | Edad: " << edad[i] << " años" 
+             << " | Peso: " << peso[i] << " kg";
+    }
+}
+
+// Función 3: Buscar
+void buscar() {
+    if (totalMascotas == 0) {
+        cout << "No hay registros para buscar.";
+        return;
+    }
+    string nombreBuscado;
+    cout << "Ingrese el nombre de la mascota a buscar: ";
+    cin >> nombreBuscado;
+
+    bool encontrado = false;
+    for (int i = 0; i < totalMascotas; i++) {
+        if (nombres[i] == nombreBuscado) {
+            cout << "¡Encontrado!\n";
+            cout << "Nombre: " << nombres[i] << " | Edad: " << edad[i] << " | Peso: " << peso[i] << " kg";
+            encontrado = true;
+            break; // Salimos del bucle al hallar la coincidencia
+        }
+    }
+    if (!encontrado) {
+        cout << "La mascota '" << nombreBuscado << "' no se encuentra registrada.";
+    }
+}
+
+// Función 4: Reporte General
+void reporteCreativo() {
+    if (totalMascotas == 0) {
+        cout << "No hay datos para generar el reporte.";
+        return;
+    }
+    double sumaPeso = 0;
+    double mayorPeso = peso[0];
+    string mascotaMayorPeso = nombres[0];
+
+    for (int i = 0; i < totalMascotas; i++) {
+        sumaPeso += peso[i];
+        if (peso[i] > mayorPeso) {
+            mayorPeso = peso[i];
+            mascotaMayorPeso = nombres[i];
+        }
+    }
+    double promedioPeso = sumaPeso / totalMascotas;
+
+    cout << "--- REPORTE GENERAL ---";
+    cout << "Total de mascotas registradas: " << totalMascotas << endl;
+    cout << "Promedio de peso de las mascotas: " << promedioPeso << " kg";
+    cout << "Mascota con mayor peso: " << mascotaMayorPeso << " (" << mayorPeso << " kg)";
 }
