@@ -32,7 +32,8 @@ using namespace std;
 void registrar();
 void mostrar();
 void buscar();
-void reporteCreativo();
+void reporte();
+void componente();
 
 //Declaramos las variables
     string nombres[20];
@@ -48,68 +49,44 @@ void reporteCreativo();
 int main() {
     //Utilizamos do while 
     do {
-        cout << "===== REGISTRO DE MASCOTAS =====";
-        cout << "1. Registrar mascota";
-        cout << "2. Mostrar  todas las mascota";
-        cout << "3. Buscar mascotas por nombre";
-        cout << "4. Reporte general";
-        cout << "5. Componente creativo";
-        cout << "6. Salir";
-        cout << "Seleccione una opcion por favor: ";
+        cout << "===== REGISTRO DE MASCOTAS =====" << endl;
+        cout << "1. Registrar mascota" << endl;
+        cout << "2. Mostrar todas las mascota" << endl;
+        cout << "3. Buscar mascotas por nombre" << endl;
+        cout << "4. Reporte general" << endl;
+        cout << "5. Componente creativo" << endl;
+        cout << "6. Salir" << endl;
+        cout << "Seleccione una opcion por favor: " << endl;
         cin >> opcion;
 
         //Evaluamos la opcion elegida
         switch (opcion){
             case 1:{ 
-                cout << "Nombre de la mascota: " << endl;
+                registrar();
                 break;
             }
             case 2:{
-                cout << "Mostrar todas las mascotas: " << endl;
+                mostrar(); 
                 break;
             }
             case 3:{
-                cout << "Buscar mascota por nombre: " << endl;
+                buscar();
                 break; 
             }
             case 4:{
-                cout << "Reporte general: " << endl;
+                reporte();
                 break;
             }
             case 5:{
-                //Integramos el componente creativo
-                if (totalMascotas == 0) {
-                    bool encontrada = false;
-
-                    for (int i = 0; i < totalMascotas; i++){
-                        cout << "Componente creativo: " << endl;
-                        if (nombres[i] == nombreBuscar) {
-                            encontrada = true;
-
-                            cout << "----RECOMENDACION NUTRICIONAL----";
-                            cout << "Mascota: " << nombres[i] << ";" << "Peso: " << peso[i] << "kg";
-
-                            if (peso[i] < 5.0){
-                                cout << "Porcion sugerida para raza pequeña: 100 g de alimento diario";
-                            }else if (peso[i] <= 15.5){
-                                cout << "Porcion sugerida para raza mediana: 250g de alimento diario";
-                            }else {
-                                cout << "Porcion sugerida raza grande: 400g o mas de alimento diario";
-                            }
-                        }
-                    }
-                    if (!encontrada){
-                        cout << "Mascota no encontrada.";
-                    }
-                    break;
-                }
+                componente();
+                break;
             }
             case 6:{
-                cout << "Saliendo del programa.";
+                cout << "Saliendo del programa." << endl;
                 break;
             }
             default:{
-                cout << "Error: intente de nuevo";
+                cout << "Error: intente de nuevo" << endl;
                 break;
             }
 
@@ -121,75 +98,76 @@ int main() {
     return 0;
 }
 
-//Esta funcion registra el nombre de la mascota
+//funcion 1: Registrar
 void registrar(){
     if (totalMascotas >=20){
-        cout << "Limite de registro alcanzado.";
+        cout << "Limite de registro alcanzado." << endl;
+        return;
     }
-    cout << "----REGISTRAR NUEVA MASCOTA----";
-    cout << "Nombre: ";
+    cout << "----REGISTRAR NUEVA MASCOTA----" << endl;
+    cout << "Nombre: " << endl;
     cin >> nombres[totalMascotas];
 
     do{
-        cout << "Edad de la mascota: ";
+        cout << "Edad de la mascota: " << endl;
         cin >> edad[totalMascotas];
         if (edad[totalMascotas] < 0)
-        cout << "Edad invalida.";
+        cout << "Edad invalida." << endl;
     }while (edad[totalMascotas] < 0);
 
     do{
-        cout << "Peso de la mascota: ";
+        cout << "Peso de la mascota: " << endl;
         cin >> peso[totalMascotas];
         if (peso[totalMascotas] <= 0)
-        cout << "Peso invalido.";
+        cout << "Peso invalido." << endl;
     }while (peso[totalMascotas] <=0);
 
     totalMascotas++;
-    cout << "Mascota registrada con exito.";
+    cout << "Mascota registrada con exito." << endl;
 }
 
 // Función 2: Mostrar
 void mostrar() {
     if (totalMascotas == 0) {
-        cout << "No existen datos registrados todavia.";
+        cout << "No existen datos registrados todavia." << endl;
         return;
     }
-    cout << "--- LISTA DE MASCOTAS ---";
+    cout << "--- LISTA DE MASCOTAS ---" << endl;
     for (int i = 0; i < totalMascotas; i++) {
         cout << i + 1 << ". Nombre: " << nombres[i] 
-             << " | Edad: " << edad[i] << " años" 
-             << " | Peso: " << peso[i] << " kg";
+             << " | Edad: " << edad[i]  << " | Peso: " << peso[i] << " kg" << endl;
     }
 }
 
 // Función 3: Buscar
 void buscar() {
     if (totalMascotas == 0) {
-        cout << "No hay registros para buscar.";
+        cout << "No hay registros para buscar." << endl;
         return;
     }
     string nombreBuscado;
-    cout << "Ingrese el nombre de la mascota a buscar: ";
+    cout << "Ingrese el nombre de la mascota por favor: " << endl;
     cin >> nombreBuscado;
 
     bool encontrado = false;
     for (int i = 0; i < totalMascotas; i++) {
         if (nombres[i] == nombreBuscado) {
-            cout << "¡Encontrado!\n";
-            cout << "Nombre: " << nombres[i] << " | Edad: " << edad[i] << " | Peso: " << peso[i] << " kg";
+            cout << "Encontrado" << endl;
+            cout << "Nombre: " << nombres[i] << " | Edad: " << edad[i] << " | Peso: " << peso[i] << " kg" 
+            << endl;
             encontrado = true;
             break; // Salimos del bucle al hallar la coincidencia
         }
     }
     if (!encontrado) {
-        cout << "La mascota '" << nombreBuscado << "' no se encuentra registrada.";
+        cout << "La mascota '" << nombreBuscado << "' no se encuentra registrada." << endl;
     }
 }
 
 // Función 4: Reporte General
-void reporteCreativo() {
+void reporte() {
     if (totalMascotas == 0) {
-        cout << "No hay datos para generar el reporte.";
+        cout << "No hay datos para generar el reporte." << endl;
         return;
     }
     double sumaPeso = 0;
@@ -205,8 +183,42 @@ void reporteCreativo() {
     }
     double promedioPeso = sumaPeso / totalMascotas;
 
-    cout << "--- REPORTE GENERAL ---";
+    cout << "--- REPORTE GENERAL ---" << endl;
     cout << "Total de mascotas registradas: " << totalMascotas << endl;
-    cout << "Promedio de peso de las mascotas: " << promedioPeso << " kg";
-    cout << "Mascota con mayor peso: " << mascotaMayorPeso << " (" << mayorPeso << " kg)";
+    cout << "Promedio de peso de las mascotas: " << promedioPeso << " kg" << endl;
+    cout << "Mascota con mayor peso: " << mascotaMayorPeso << " (" << mayorPeso << " kg)" << endl;
+}
+
+//Funcion 5: Componente
+void componente(){
+    if (totalMascotas == 0) {
+        cout << "No hay registros para generar una recomendacion." << endl;
+        return;
+    }
+    string nombreBuscar;
+    cout << "Componente creativo: " << endl;
+    cout << "Ingrese el nombre de la mascota: ";
+    cin >> nombreBuscar;
+
+    bool encontrada = false;
+    for (int i = 0; i < totalMascotas; i++){
+        if (nombres[i] == nombreBuscar) {
+            encontrada = true;
+
+            cout << "----RECOMENDACION NUTRICIONAL----" << endl;
+            cout << "Mascota: " << nombres[i] << "; Peso: " << peso[i] << " kg" << endl;
+
+            if (peso[i] < 5.0){
+                cout << "Porcion sugerida para raza pequena: 100 g de alimento diario" << endl;
+            } else if (peso[i] <= 15.5){
+                cout << "Porcion sugerida para raza mediana: 250 g de alimento diario" << endl;
+            } else {
+                cout << "Porcion sugerida para raza grande: 400 g o mas de alimento diario" << endl;
+            }
+            break;
+        }
+    }
+    if (!encontrada){
+        cout << "Mascota no encontrada." << endl;
+    }
 }
